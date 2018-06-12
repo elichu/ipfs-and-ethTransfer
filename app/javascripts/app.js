@@ -115,7 +115,6 @@ window.App = {
         
         ipfs.files.get(self.bytes32ToIPFSHash(res)).then(res => {
           var outputString = res[0].content.toString('utf8');
-          //console.log(`from ipfs ${output}`);
           var truncatedString = outputString.substring(0, 150);
 
           var docTemplate = $('#docTemplate');
@@ -198,7 +197,7 @@ window.App = {
       if (error) console.error(error);
       else {
         console.log(receipt);
-        res.json(receipt);
+       // res.json(receipt);
       }
     }
 
@@ -210,8 +209,6 @@ window.App = {
         web3.eth.sendTransaction({ from: account, to: res, value: 10**18 },
           handleReceipt);
         //return datastore.transferToUser(10**18, {from: res});
-      }).then(function(res) {
-        console.log("Transaction complete!");
       }).catch(function(e) {
         console.log(e);
         console.log("Could not record transaction");
