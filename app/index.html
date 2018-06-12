@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload and Eth Transfer Demo</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <script src="./app.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+  <div class="container">
+    <h1>Upload File to IPFS</h1>
+    <br><label for="file">File:</label><input type="file" id="file" oninput="App.loadFile(event)"></input>
+    <span id="status"></span>
+    
+    <button class="btn" type="button" name="getone" id="getone" onclick="App.getFromIpfs1()">Get 1st document of current user</button>
+    <button class="btn" type="button" name="getall" id="getall" onclick="App.getFromIpfs2()">Get all documents</button>
+    <button class="btn" type="button" name="returnhash" id="returnhash" onclick="App.returnHash()">Get hash list</button>
+
+    <div id="docRow" class="row">
+    </div> 
+      <div id="docTemplate" style="display: none;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-doc">
+          <div class="panel-heading">
+            <h3 class="panel-title">Title</h3>
+          </div>
+          <div class="panel-body">
+            <p id="panel-content"></p>
+            <br/><br/>
+            <!-- <button class="btn btn-default" id= "read-more" type="button" data-id="0">Read more</button> -->
+            <button class="btn btn-default" id= "give-coin" type="button" data-hash="0" onclick="App.giveCoin(event)">Give coin</button>
+          </div>
+        </div>
+      </div>
+      </div>
+
+</body>
+</html>
