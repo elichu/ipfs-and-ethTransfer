@@ -18,30 +18,80 @@
   
   <div class="container">
     <h1>Upload File to IPFS</h1>
-    <br><label for="file">File:</label><input type="file" id="file" oninput="App.loadFile(event)"></input>
-    <span id="status"></span>
-    
-    <button class="btn" type="button" name="getone" id="getone" onclick="App.getFromIpfs1()">Get 1st document of current user</button>
-    <button class="btn" type="button" name="getall" id="getall" onclick="App.getFromIpfs2()">Get all documents</button>
-    <button class="btn" type="button" name="returnhash" id="returnhash" onclick="App.returnHash()">Get hash list</button>
 
-    <div id="docRow" class="row">
-    </div> 
-      <div id="docTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-default panel-doc">
-          <div class="panel-heading">
-            <h3 class="panel-title">Title</h3>
-          </div>
-          <div class="panel-body">
-            <p id="panel-content"></p>
-            <br/><br/>
-            <!-- <button class="btn btn-default" id= "read-more" type="button" data-id="0">Read more</button> -->
-            <button class="btn btn-default" id= "give-coin" type="button" data-hash="0" onclick="App.giveCoin(event)">Give coin</button>
+    <div class="topButtons">
+    <button class="btn" data-toggle="collapse" data-target="#uploadForm">Upload a file</button>
+    <button class="btn btn-default" type="button" name="account" id="account" 
+    data-toggle="collapse" data-target="#docRow2" onclick="App.getUserDocs()">My Uploaded Docs</button>
+    </div>
+
+    <div id="docRow2" class="row" ></div> 
+      <div id="docTemplate2" style="display: none;">
+        <div class="col-sm-6 col-md-4 col-lg-3">
+          <div class="panel panel-default panel-doc">
+            <div class="panel-heading" id="panel-heading2">
+              <h3 class="panel-title" id="panel-title2" data-title="title">Title</h3>
+            </div>
+            <div class="panel-body">
+              <p id="panel-content2"></p>
+              <br/>
+              <button class="btn btn-default" id= "expand" type="button" data-hash="0" data-title="" data-toggle="modal" data-target="#modal" onclick="App.readMore(event,1)">Expand</button>
+            </div>
           </div>
         </div>
       </div>
+      <hr>
+    <br><h3>All Uploaded Docs</h3><br>
+    
+    <div id="uploadForm" class="collapse text-center">
+      <label for="title" id="titleLabel">Title:</label>
+      <input type="text" id="title" class="form-control"></input>
+
+      <label for="file" id="fileLabel">File:</label>
+      <input type="file" id="file" class="form-control"></input>
+      <br>
+
+      <button class="btn" type="button" name="uploadButton" id="uploadButton" onclick="App.loadFile()">Upload</button>
+      <span id="status"></span>
+      <br><br>
+    </div>
+  
+
+    <div id="docRow" class="row"></div> 
+    <div id="docTemplate" style="display: none;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-doc">
+          <div class="panel-heading">
+            <h3 class="panel-title" data-title="title">Title</h3>
+          </div>
+          <div class="panel-body">
+            <p id="panel-content"></p>
+            <br/>
+          
+            <button class="btn btn-default" id= "read-more" type="button" data-hash="0" data-toggle="modal" data-target="#modal" onclick="App.readMore(event, 0)">Read more</button>
+            <button class="btn btn-default" id= "give-eth" type="button" data-hash="0" data-title="" style="display: none;" onclick="App.giveEth(event)">Give Eth</button>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content" style="margin:10px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div id="modal-body" style="margin:18px;">
+          <p id="modal-text"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

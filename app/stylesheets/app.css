@@ -50,3 +50,28 @@ h3 {
 .hint {
   color: #666;
 }
+
+
+.topButtons {
+  float:right;
+  margin:18px;
+}
+
+ #file {
+  width:35%;
+  margin:auto;
+ }
+
+
+#title {
+  width:35%;
+  margin:auto;
+} 
+
+#docRow {
+  margin-top:10px;
+}
+
+#docRow2 {
+  margin-top:25px;
+}

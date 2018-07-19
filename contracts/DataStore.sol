@@ -1,5 +1,4 @@
-pragma solidity ^0.4.0;
-//pragma experimental ABIEncoderV2;
+pragma solidity ^0.4.24;
 
 contract DataStore {
 
@@ -10,8 +9,8 @@ contract DataStore {
         bytes hash;
         uint id;
         uint ownerIndex;
-       // string date;
-       // string name;
+        string dateAdded;
+        string title;
     }
 
     address[] public users;
@@ -20,13 +19,13 @@ contract DataStore {
 
     //save the IPFS hash into a Document struct
     //each user can possess multiple documents
-    function addDocForUser(bytes data) public returns (bool success) {
+    function addDocForUser(bytes data, string title, string date) public returns (bool success) {
         uint docId;
         uint owner;
         if(userDocs[msg.sender].length == 0) {
             docId = 0;
             owner = users.length;
-            userDocs[msg.sender].push(Document(data, docId, owner));
+            userDocs[msg.sender].push(Document(data, docId, owner, date, title));
             allDocs[data] = msg.sender;
             users.push(msg.sender);
             return true;
@@ -34,7 +33,7 @@ contract DataStore {
             docId = userDocs[msg.sender].length;
             owner = userDocs[msg.sender][0].ownerIndex;
 
-            userDocs[msg.sender].push(Document(data, docId, owner));
+            userDocs[msg.sender].push(Document(data, docId, owner, date, title));
             allDocs[data] = msg.sender;
             return true;
         }
@@ -45,6 +44,10 @@ contract DataStore {
     function getDocForUser(uint docId) public view returns (bytes) {
         return userDocs[msg.sender][docId].hash;
     }
+    
+    function getDocTitleForUser(uint docId) public view returns (string) {
+        return userDocs[msg.sender][docId].title;
+    }
 
     //to be used in nested for loop to retrieve all docs
     function getDocByUserIndex(uint ownerid, uint docId) public view returns (bytes) {
@@ -52,13 +55,22 @@ contract DataStore {
         return userDocs[addr][docId].hash;
     }
 
+    function getDocTitleByUserIndex(uint ownerid, uint docId) public view returns (string) {
+        address addr = users[ownerid];
+        return userDocs[addr][docId].title;
+    }
+
     function getNumUsers() public view returns (uint) {
         return users.length;
     }
 
-    function getNumDocsForUser(uint ownerid) public view returns (uint) {
+    function getNumDocsForUserById(uint ownerid) public view returns (uint) {
         address addr = users[ownerid];
         return userDocs[addr].length;
+    }
+
+    function getNumDocsForUserByAddr() public view returns (uint) {
+        return userDocs[msg.sender].length;
     }
 
     function transferToContract() public payable returns (bool) {
@@ -71,6 +83,10 @@ contract DataStore {
 
     function getAddressFromDoc(bytes hash) public view returns (address) {
         return allDocs[hash];
+    }
+
+    function getUserByIndex(uint index) public view returns (address) {
+        return users[index];
     }
 
 }
